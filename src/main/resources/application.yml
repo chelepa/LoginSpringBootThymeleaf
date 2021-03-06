@@ -1,0 +1,15 @@
+
+spring:
+  application:
+    name: LoginSpringBootThymeleaf
+  flyway:
+    enabled: false
+    
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3307/${MYSQL_DB:LoginSpringBootThymeleaf}?useTimezone=true&serverTimezone=UTC
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:root}
+    
+  jpa:
+    hibernate:
+      ddl-auto: update
