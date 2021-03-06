@@ -1,9 +1,10 @@
-
+server:
+  port: 8080
 spring:
   application:
     name: LoginSpringBootThymeleaf
   flyway:
-    enabled: false
+    enabled: true
     
   datasource:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3307/${MYSQL_DB:LoginSpringBootThymeleaf}?useTimezone=true&serverTimezone=UTC
