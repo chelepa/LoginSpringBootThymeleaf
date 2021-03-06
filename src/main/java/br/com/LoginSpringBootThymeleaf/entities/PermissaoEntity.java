@@ -1,10 +1,12 @@
 package br.com.LoginSpringBootThymeleaf.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -25,4 +27,7 @@ public class PermissaoEntity implements Serializable{
 	
 	@Column(name="DS_DESCRICAO")
 	private String descricao;
+	
+	@ManyToMany(mappedBy = "permissoes")
+	private List<GrupoEntity> grupos;
 }
