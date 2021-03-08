@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -82,18 +81,18 @@ public class UsuarioService  implements UserDetailsService {
 	
 	public void alterarUsuario(UsuarioDTO usuarioModel){
 		 
-		Optional<UsuarioEntity> usuarioEntity =  usuarioRepository.findById(usuarioModel.getCodigo());
- 
-		usuarioEntity.get().setAtivo(usuarioModel.isAtivo());
-		usuarioEntity.get().setLogin(usuarioModel.getLogin());
-		usuarioEntity.get().setNome(usuarioModel.getNome());
-		
-		if(!StringUtils.isEmpty(usuarioModel.getSenha()))
-		 usuarioEntity.get().setSenha(new BCryptPasswordEncoder().encode(usuarioModel.getSenha()));
- 
-		usuarioEntity.get().setGrupos(buscarGruposUsers(usuarioModel));
- 
-		usuarioRepository.saveAndFlush(usuarioEntity.get());
+//		Optional<UsuarioEntity> usuarioEntity =  usuarioRepository.findById(usuarioModel.getCodigo());
+// 
+//		usuarioEntity.get().setAtivo(usuarioModel.isAtivo());
+//		usuarioEntity.get().setLogin(usuarioModel.getLogin());
+//		usuarioEntity.get().setNome(usuarioModel.getNome());
+//		
+//		if(!StringUtils.isEmpty(usuarioModel.getSenha()))
+//		 usuarioEntity.get().setSenha(new BCryptPasswordEncoder().encode(usuarioModel.getSenha()));
+// 
+//		usuarioEntity.get().setGrupos(buscarGruposUsers(usuarioModel));
+// 
+//		usuarioRepository.saveAndFlush(usuarioEntity.get());
 	}
 	
 	private List<GrupoEntity> buscarGruposUsers(UsuarioDTO user){
