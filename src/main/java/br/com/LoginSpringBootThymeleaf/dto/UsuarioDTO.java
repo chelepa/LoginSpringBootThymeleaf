@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class UsuarioDTO {
 	
-	private Integer codigo;
+	private long codigo;
 
 	@NotEmpty(message = "O Nome é de preenchimento obrigatório.")
 	private String nome;
