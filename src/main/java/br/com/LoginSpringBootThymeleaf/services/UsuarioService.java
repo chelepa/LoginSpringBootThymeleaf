@@ -80,7 +80,7 @@ public class UsuarioService implements UserDetailsService {
 
 	public void alterarUsuario(UsuarioDTO usuarioModel) {
 
-		Optional<UsuarioEntity> usuarioEntity =  usuarioRepository.findById(usuarioModel.getCodigo());
+		Optional<UsuarioEntity> usuarioEntity = usuarioRepository.findById(usuarioModel.getCodigo());
  
 		usuarioEntity.get().setAtivo(usuarioModel.isAtivo());
 		usuarioEntity.get().setLogin(usuarioModel.getLogin());

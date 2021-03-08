@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
  
 	@GetMapping(value="/")	
-	public String index(){
-	    return "index";
+	public String login(){
+	    return "/login/Login.html";
 	}
  
 }
