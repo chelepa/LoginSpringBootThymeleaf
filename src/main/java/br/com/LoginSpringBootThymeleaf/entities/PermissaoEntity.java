@@ -17,26 +17,26 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "TB_PERMISSAO")
+@Table(name = "tb_permissao")
 public class PermissaoEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="ID_PERMISSAO")
+	@Column(name="id_permissao")
 	private Integer id;
 	 
-	@Column(name="DS_PERMISSAO")
+	@Column(name="ds_permissao")
 	private String permissao;
 	
-	@Column(name="DS_DESCRICAO")
+	@Column(name="ds_descricao")
 	private String descricao;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
-			name="TB_PERMISSAO_GRUPO",
-			joinColumns=@JoinColumn(name="ID_PERMISSAO", referencedColumnName="ID_PERMISSAO"),
-			inverseJoinColumns=@JoinColumn(name="ID_GRUPO", referencedColumnName="ID_GRUPO")
+			name="tb_permissao_grupo",
+			joinColumns=@JoinColumn(name="id_permissao", referencedColumnName="id_permissao"),
+			inverseJoinColumns=@JoinColumn(name="id_grupo", referencedColumnName="id_grupo")
 		)
 	private List<GrupoEntity> grupos = new ArrayList<GrupoEntity>();
 }

@@ -1,6 +1,6 @@
-CREATE TABLE TB_GRUPO(
-	ID_GRUPO int NOT NULL AUTO_INCREMENT,
-	DS_NOME varchar(50) NOT NULL,
-    DS_DESCRICAO varchar(200) NOT NULL,
-    PRIMARY KEY (ID_GRUPO)
+CREATE TABLE tb_grupo(
+	id_grupo int NOT NULL AUTO_INCREMENT,
+	ds_nome varchar(50) NOT NULL,
+    ds_descricao varchar(200) NOT NULL,
+    PRIMARY KEY (id_grupo)
 );

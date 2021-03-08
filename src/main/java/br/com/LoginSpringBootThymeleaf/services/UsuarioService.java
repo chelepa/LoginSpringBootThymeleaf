@@ -13,7 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import br.com.LoginSpringBootThymeleaf.dto.UsuarioDTO;
 import br.com.LoginSpringBootThymeleaf.dto.UsuarioSecurityDTO;
@@ -23,7 +23,7 @@ import br.com.LoginSpringBootThymeleaf.repositories.GrupoRepository;
 import br.com.LoginSpringBootThymeleaf.repositories.PermissaoRepository;
 import br.com.LoginSpringBootThymeleaf.repositories.UsuarioRepository;
 
-@Service
+@Component
 public class UsuarioService implements UserDetailsService {
 
 	@Autowired

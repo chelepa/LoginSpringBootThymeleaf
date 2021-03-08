@@ -17,34 +17,34 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "TB_GRUPO")
+@Table(name = "tb_grupo")
 public class GrupoEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	@Id	
-	@Column(name="ID_GRUPO")
+	@Column(name="id_grupo")
 	private Integer codigo;
  
-	@Column(name="DS_NOME")
+	@Column(name="ds_nome")
 	private String nome;
  
-	@Column(name="DS_DESCRICAO")
+	@Column(name="ds_descricao")
 	private String descricao;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
-		name="TB_USUARIO_GRUPO",
-		joinColumns=@JoinColumn(name="ID_GRUPO", referencedColumnName="ID_GRUPO"),
-		inverseJoinColumns=@JoinColumn(name="ID_USUARIO", referencedColumnName="ID_USUARIO")
+		name="tb_usuario_grupo",
+		joinColumns=@JoinColumn(name="id_grupo", referencedColumnName="id_grupo"),
+		inverseJoinColumns=@JoinColumn(name="id_usuario", referencedColumnName="id_usuario")
 	)
 	private List<UsuarioEntity> usuarios = new ArrayList<UsuarioEntity>();
  
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
-		name="TB_PERMISSAO_GRUPO",
-		joinColumns=@JoinColumn(name="ID_GRUPO", referencedColumnName="ID_GRUPO"),
-		inverseJoinColumns=@JoinColumn(name="ID_PERMISSAO", referencedColumnName="ID_PERMISSAO")
+		name="tb_permissao_grupo",
+		joinColumns=@JoinColumn(name="id_grupo", referencedColumnName="id_grupo"),
+		inverseJoinColumns=@JoinColumn(name="id_permissao", referencedColumnName="id_permissao")
 	)
 	private List<PermissaoEntity> permissoes = new ArrayList<PermissaoEntity>();
 }
