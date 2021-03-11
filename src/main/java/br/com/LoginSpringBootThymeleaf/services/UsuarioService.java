@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,6 +19,7 @@ import br.com.LoginSpringBootThymeleaf.dto.UsuarioDTO;
 import br.com.LoginSpringBootThymeleaf.dto.UsuarioSecurityDTO;
 import br.com.LoginSpringBootThymeleaf.entities.GrupoEntity;
 import br.com.LoginSpringBootThymeleaf.entities.UsuarioEntity;
+import br.com.LoginSpringBootThymeleaf.exceptions.BadCredentialsException;
 import br.com.LoginSpringBootThymeleaf.repositories.GrupoRepository;
 import br.com.LoginSpringBootThymeleaf.repositories.PermissaoRepository;
 import br.com.LoginSpringBootThymeleaf.repositories.UsuarioRepository;
@@ -36,12 +37,12 @@ public class UsuarioService implements UserDetailsService {
 	private PermissaoRepository permissaoRepository;
 
 	@Override
-	public UserDetails loadUserByUsername(String login) throws BadCredentialsException, DisabledException {
+	public UserDetails loadUserByUsername(String login) throws DisabledException {
 
 		UsuarioEntity usuarioEntity = usuarioRepository.findByLogin(login);
-
-		if (usuarioEntity == null)
-			throw new BadCredentialsException("Usuário não encontrado no sistema!");
+				
+		if (ObjectUtils.isEmpty(usuarioEntity))
+			throw new BadCredentialsException("Usuário ou senha invalidos");
 
 		if (!usuarioEntity.isAtivo())
 			throw new DisabledException("Usuário não está ativo no sistema!");
