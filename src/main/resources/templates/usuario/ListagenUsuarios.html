@@ -1,16 +1,63 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="@{~/layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/layout">
 <head>
-  <title>Home Page</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
-<!--   <link href="../css/style.css" rel="stylesheet">    -->
+  <title>Usuarios</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>       
 </head>
 <body>
   <section layout:fragment="content"> 
       <div class="mdl-grid">   
         <div class="mdl-layout-spacer"></div>    
         <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--4dp mdl-color--white">    	
-          <h1>&nbsp;Sistema de Cadastro de Usuárioswwwwwwwww&nbsp;</h1>    	
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="card">
+									<div class="card-body">
+										<h1 class="card-title">Lista de Usuarios</h1>
+										
+											<p class="card-text">
+												Aqui está a lista de <code>Usuarios</code> cadastrados no sistema.
+											</p>
+											<div class="text-right">
+												<a th:href="@{/usuario/cadastro}" class="btn btn-primary">Cadastrar Usuario</a>
+											</div>
+										<hr/>
+										<table class="table">
+											<thead class="thead-dark">
+												<tr>
+													<th>ID</th>
+													<th>Nome</th>
+													<th>Login</th>
+													<th>Status</th>
+													<th>Ações</th>
+												</tr>
+											</thead>
+											<tbody th:each="usuarioModel : ${usuariosModel}"> 
+												<tr>
+													<td th:text="${usuarioModel.codigo}"></td>
+													<td th:text="${usuarioModel.nome}" class="mdl-data-table__cell--non-numeric"></td>
+													<td th:text="${usuarioModel.login}" class="mdl-data-table__cell--non-numeric"></td>
+													<td th:if="${usuarioModel.ativo}" th:text="Sim" class="mdl-data-table__cell--non-numeric"></td>
+													<td th:unless="${usuarioModel.ativo}" th:text="Não" class="mdl-data-table__cell--non-numeric"></td>
+													<td>
+														<a href="{% url 'website:atualiza_funcionario' pk=funcionario.id %}"
+																class="btn btn-info">
+															Atualizar
+														</a>
+														<a href="{% url 'website:deleta_funcionario' pk=funcionario.id %}"
+															class="btn btn-outline-danger">
+																Excluir
+														</a>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
         </section>	
         <div class="mdl-layout-spacer"></div>
       </div>

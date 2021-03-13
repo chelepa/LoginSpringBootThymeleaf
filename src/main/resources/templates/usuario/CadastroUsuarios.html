@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/layout">
+<head>
+  <title>Usuarios</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>       
+</head>
+<body>
+  <section layout:fragment="content"> 
+      <div class="mdl-grid">   
+        <div class="mdl-layout-spacer"></div>    
+        <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--4dp mdl-color--white">    	
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="card">
+									<div class="card-body">
+										<h1 class="card-title">Cadastro de Usuarios</h1>
+                    <hr/>
+                    <form action="#" id="formulario-cadastro" th:action="@{../usuario/salvarUsuario}" th:object="${usuarioModel}" method="post">
+                      <fieldset>
+                        <li class="mdl-list__item" th:if="${msg_resultado}">						 	
+                          <p id="p-mensagem-sucesso" class="sucesso-msg" th:text="${msg_resultado}" >...</p>		
+                        </li>
+                        <div class="form-group">
+                          <label for="input-nome">Nome Completo</label>
+                          <input type="text" class="form-control" id="input-nome" placeholder="Nome">
+                          <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="erro-msg">...</p>
+                        </div>
+                        <div class="form-group">
+                          <label for="input-login">Login</label>
+                          <input class="form-control" type="text" id="input-login" th:field="*{login}" placeholder="Login">
+                          <p th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="erro-msg">...</p>
+                        </div>
+                        <div class="form-group">
+                          <label for="input-senha">Senha</label>
+                          <input class="form-control"type="password" id="input-senha" th:field="*{senha}" placeholder="Senha"/>
+                          <p th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" class="erro-msg">...</p>
+                        </div>
+                        <table>
+                          <tr>
+                            <td>
+                              <span th:text="Perfil"></span>
+                            </td>
+                          </tr>
+                          <th:block th:each="grupo, stat : ${grupos}">
+                             <tr>
+                                <td>
+                                  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" th:for="${__${grupo.codigo}__}">
+                                    <input type="checkbox" th:id="${__${grupo.codigo}__}" th:name="|grupos[${stat.index}]|" th:value="${grupo.codigo}" class="mdl-checkbox__input" 
+                                    th:checked="${grupo.checked}"/>
+                                    <span class="mdl-checkbox__label" th:text="${grupo.descricao}">...</span>
+                                  </label>
+                                </td>
+                             </tr>
+                          </th:block>
+                          <tr><td><p th:if="${#fields.hasErrors('grupos')}" th:errors="*{grupos}" class="erro-msg">...</p></td></tr>
+                       </table>
+                      </fieldset>
+                      <hr/>
+                      <div class="text-right">
+                        <a th:href="@{/usuario}" class="btn btn-primary">Voltar</a>
+
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                      </div>
+                    </form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+        </section>	
+        <div class="mdl-layout-spacer"></div>
+      </div>
+  </section>
+</body>
+</html>
