@@ -19,8 +19,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/usuario/novoCadastro").access("hasRole('ADMIN') or hasRole('ROLE_CADASTROUSUARIO')")
-			.antMatchers("/usuario/consultar").access("hasRole('ADMIN') or hasRole('CONSULTAUSUARIO')")
+			.antMatchers("/usuario/novoCadastro").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_CADASTROUSUARIO')")
+			.antMatchers("/usuario/consultar").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_CONSULTAUSUARIO')")
 			.antMatchers("/home").authenticated()
 			.anyRequest().authenticated()			
 			.and()			

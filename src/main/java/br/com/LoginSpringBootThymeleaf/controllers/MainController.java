@@ -22,11 +22,5 @@ public class MainController {
  
 		return "/erros/AcessoNegado.html";
 	}
-	
-	@GetMapping(value="/layout")
-	public String layout(){
- 
-		return "/layout/layout.html";
-	}
  
 }
