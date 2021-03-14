@@ -12,4 +12,4 @@ INSERT INTO `LoginSpringBootThymeleaf`.`tb_permissao_grupo` (`id_permissao`, `id
 INSERT INTO `LoginSpringBootThymeleaf`.`tb_permissao_grupo` (`id_permissao`, `id_grupo`) VALUES ('2', '2');
 INSERT INTO `LoginSpringBootThymeleaf`.`tb_permissao_grupo` (`id_permissao`, `id_grupo`) VALUES ('3', '3');
 
-INSERT INTO `LoginSpringBootThymeleaf`.`tb_usuario_grupo` (`id_usuario`, `id_grupo`) VALUES ('1', '1');
+INSERT INTO `LoginSpringBootThymeleaf`.`tb_usuario_grupo` (`id_usuario`, `id_grupo`) VALUES ('1', '3');

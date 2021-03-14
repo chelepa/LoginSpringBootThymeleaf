@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import br.com.LoginSpringBootThymeleaf.dto.UsuarioDTO;
+import br.com.LoginSpringBootThymeleaf.dto.UsuarioRequestDTO;
 import br.com.LoginSpringBootThymeleaf.dto.UsuarioSecurityDTO;
 import br.com.LoginSpringBootThymeleaf.entities.GrupoEntity;
 import br.com.LoginSpringBootThymeleaf.entities.UsuarioEntity;
@@ -51,13 +52,13 @@ public class UsuarioService implements UserDetailsService {
 				this.buscarPermissoesUsuario(usuarioEntity));
 	}
 
-	public void salvarUsuario(UsuarioDTO user) {
+	public void salvarUsuario(UsuarioRequestDTO user) {
 		UsuarioEntity usuarioEntity = new UsuarioEntity();
 		usuarioEntity.setAtivo(true);
 		usuarioEntity.setLogin(user.getLogin());
 		usuarioEntity.setNome(user.getNome());
 		usuarioEntity.setSenha(new BCryptPasswordEncoder().encode(user.getSenha()));
-		usuarioEntity.setGrupos(buscarGruposUsers(user));
+		usuarioEntity.setGrupos(buscarGruposUsers(user.getGrupos()));
 		usuarioRepository.save(usuarioEntity);
 	}
 
@@ -90,15 +91,15 @@ public class UsuarioService implements UserDetailsService {
 		if(!StringUtils.isEmpty(usuarioModel.getSenha()))
 		 usuarioEntity.get().setSenha(new BCryptPasswordEncoder().encode(usuarioModel.getSenha()));
  
-		usuarioEntity.get().setGrupos(buscarGruposUsers(usuarioModel));
+		usuarioEntity.get().setGrupos(buscarGruposUsers(usuarioModel.getGrupos()));
  
 		usuarioRepository.saveAndFlush(usuarioEntity.get());
 	}
 
-	private List<GrupoEntity> buscarGruposUsers(UsuarioDTO user) {
+	private List<GrupoEntity> buscarGruposUsers(List<Integer> list) {
 		Optional<GrupoEntity> grupoEntity;
 		List<GrupoEntity> grupos = new ArrayList<GrupoEntity>();
-		for (Integer codigoGrupo : user.getGrupos()) {
+		for (Integer codigoGrupo : list) {
 			if (codigoGrupo != null) {
 				grupoEntity = grupoRepository.findById(codigoGrupo);
 				grupos.add(grupoEntity.get());

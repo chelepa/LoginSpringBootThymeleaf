@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.LoginSpringBootThymeleaf.dto.GrupoDTO;
 import br.com.LoginSpringBootThymeleaf.dto.UsuarioDTO;
+import br.com.LoginSpringBootThymeleaf.dto.UsuarioRequestDTO;
 import br.com.LoginSpringBootThymeleaf.services.GrupoService;
 import br.com.LoginSpringBootThymeleaf.services.UsuarioService;
 
@@ -51,7 +52,7 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(value="/usuario/salvarUsuario")
-	public ModelAndView salvarUsuario(@ModelAttribute @Valid UsuarioDTO usuarioModel, final BindingResult result,	Model model, RedirectAttributes redirectAttributes){
+	public ModelAndView salvarUsuario(@ModelAttribute @Valid UsuarioRequestDTO usuarioModel, final BindingResult result,	Model model, RedirectAttributes redirectAttributes){
 		
 		if(!result.hasErrors()){
 			
