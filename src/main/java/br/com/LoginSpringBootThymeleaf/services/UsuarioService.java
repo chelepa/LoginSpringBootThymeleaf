@@ -68,10 +68,10 @@ public class UsuarioService implements UserDetailsService {
 
 		List<UsuarioEntity> usuariosEntity = usuarioRepository.findAll();
 
-		usuariosEntity.forEach(usuarioEntity -> {
+		usuariosEntity.forEach(usuarioEntity -> 
 			usuariosModel.add(new UsuarioDTO(usuarioEntity.getId(), usuarioEntity.getNome(), usuarioEntity.getLogin(),
-					null, usuarioEntity.isAtivo(), null));
-		});
+					null, usuarioEntity.isAtivo(), null))
+		);
 
 		return usuariosModel;
 	}
@@ -98,7 +98,7 @@ public class UsuarioService implements UserDetailsService {
 
 	private List<GrupoEntity> buscarGruposUsers(List<Integer> list) {
 		Optional<GrupoEntity> grupoEntity;
-		List<GrupoEntity> grupos = new ArrayList<GrupoEntity>();
+		List<GrupoEntity> grupos = new ArrayList<>();
 		for (Integer codigoGrupo : list) {
 			if (codigoGrupo != null) {
 				grupoEntity = grupoRepository.findById(codigoGrupo);
@@ -118,11 +118,8 @@ public class UsuarioService implements UserDetailsService {
 	private List<GrantedAuthority> buscarPermissoesDosGrupos(List<GrupoEntity> grupos) {
 		List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
 
-		grupos.forEach(grupo -> {
-			permissaoRepository.findByGrupos(grupo).forEach(permissao -> {
-				auths.add(new SimpleGrantedAuthority(permissao.getPermissao()));
-			});
-		});
+		grupos.forEach(grupo ->	permissaoRepository.findByGrupos(grupo).forEach(permissao -> auths.add(new SimpleGrantedAuthority(permissao.getPermissao()))));
+		
 		return auths;
 	}
 }
