@@ -15,8 +15,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import br.com.LoginSpringBootThymeleaf.dto.GrupoDTO;
 import br.com.LoginSpringBootThymeleaf.dto.UsuarioDTO;
-import br.com.LoginSpringBootThymeleaf.dto.UsuarioRequestDTO;
 import br.com.LoginSpringBootThymeleaf.dto.UsuarioSecurityDTO;
 import br.com.LoginSpringBootThymeleaf.entities.GrupoEntity;
 import br.com.LoginSpringBootThymeleaf.entities.UsuarioEntity;
@@ -36,6 +36,9 @@ public class UsuarioService implements UserDetailsService {
 
 	@Autowired
 	private PermissaoRepository permissaoRepository;
+	
+	@Autowired
+	private GrupoService grupoService;
 
 	@Override
 	public UserDetails loadUserByUsername(String login) throws DisabledException {
@@ -52,7 +55,7 @@ public class UsuarioService implements UserDetailsService {
 				this.buscarPermissoesUsuario(usuarioEntity));
 	}
 
-	public void salvarUsuario(UsuarioRequestDTO user) {
+	public void salvarUsuario(UsuarioDTO user) {
 		UsuarioEntity usuarioEntity = new UsuarioEntity();
 		usuarioEntity.setAtivo(true);
 		usuarioEntity.setLogin(user.getLogin());
@@ -75,6 +78,18 @@ public class UsuarioService implements UserDetailsService {
 
 		return usuariosModel;
 	}
+	
+	public UsuarioDTO consultarUsuariosbyId(Long codigoUsuario) {
+		UsuarioDTO usuariosModel = new UsuarioDTO();
+
+		Optional<UsuarioEntity> usuariosEntity = usuarioRepository.findById(codigoUsuario);
+		
+		if (ObjectUtils.allNotNull(usuariosEntity)) {
+			usuariosModel = new UsuarioDTO(usuariosEntity.get().getId(), usuariosEntity.get().getNome(), usuariosEntity.get().getLogin(), null, usuariosEntity.get().isAtivo(), null);
+		}
+
+		return usuariosModel;
+	}
 
 	public void excluir(long codigoUsuario) {
 		usuarioRepository.deleteById(codigoUsuario);
@@ -94,6 +109,23 @@ public class UsuarioService implements UserDetailsService {
 		usuarioEntity.get().setGrupos(buscarGruposUsers(usuarioModel.getGrupos()));
  
 		usuarioRepository.saveAndFlush(usuarioEntity.get());
+	}
+	
+	public List<GrupoDTO> setGruposModel(UsuarioDTO usuarioModel) {
+		List<GrupoDTO> gruposModel = grupoService.consultarGrupos();
+		
+		gruposModel.forEach(grupo -> { 
+			
+			if (ObjectUtils.allNotNull(usuarioModel.getGrupos())) {
+				usuarioModel.getGrupos().forEach(grupoSelecionado -> { 
+					if(grupoSelecionado != null && grupo.getCodigo().equals(grupoSelecionado)){
+						grupo.setChecked(true);
+					}
+				});
+			}
+		});
+		
+		return gruposModel;
 	}
 
 	private List<GrupoEntity> buscarGruposUsers(List<Integer> list) {

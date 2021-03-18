@@ -11,12 +11,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.LoginSpringBootThymeleaf.dto.GrupoDTO;
 import br.com.LoginSpringBootThymeleaf.dto.UsuarioDTO;
-import br.com.LoginSpringBootThymeleaf.dto.UsuarioRequestDTO;
 import br.com.LoginSpringBootThymeleaf.services.GrupoService;
 import br.com.LoginSpringBootThymeleaf.services.UsuarioService;
 
@@ -42,17 +42,14 @@ public class UsuarioController {
 	@GetMapping(value="/usuario/cadastro")	
 	public ModelAndView novoCadastro(Model model) {
  
-		/*LISTA DE GRUPOS QUE VAMOS MOSTRAR NA PÁGINA*/
 		model.addAttribute("grupos", grupoService.consultarGrupos());
- 
-		/*OBJETO QUE VAMOS ATRIBUIR OS VALORES DOS CAMPOS*/
 		model.addAttribute("usuarioModel", new UsuarioDTO());
  
 	    return new ModelAndView("usuario/CadastroUsuarios");
 	}
 	
 	@PostMapping(value="/usuario/salvarUsuario")
-	public ModelAndView salvarUsuario(@ModelAttribute @Valid UsuarioRequestDTO usuarioModel, final BindingResult result,	Model model, RedirectAttributes redirectAttributes){
+	public ModelAndView salvarUsuario(@ModelAttribute @Valid UsuarioDTO usuarioModel, final BindingResult result,	Model model, RedirectAttributes redirectAttributes){
 		
 		if(!result.hasErrors()){
 			
@@ -66,22 +63,7 @@ public class UsuarioController {
 			
 		}
 		
-		List<GrupoDTO> gruposModel =grupoService.consultarGrupos();
-		
-		gruposModel.forEach(grupo ->{
-			 
-			if(usuarioModel.getGrupos() != null && usuarioModel.getGrupos().size() > 0){
-
-				usuarioModel.getGrupos().forEach(grupoSelecionado->{
-
-					if(grupoSelecionado!= null){
-						if(grupo.getCodigo().equals(grupoSelecionado))
-							grupo.setChecked(true);
-					}					
-				});				
-			}
-
-		});
+		List<GrupoDTO> gruposModel = usuarioService.setGruposModel(usuarioModel);
 		
 		model.addAttribute("grupos", gruposModel);
 		
@@ -90,5 +72,18 @@ public class UsuarioController {
 		return new ModelAndView("usuario/CadastroUsuarios");
 		
 	}
+	
+	@GetMapping(value="/usuario/editar")		
+	public ModelAndView editarCadastro(@RequestParam("codigoUsuario") Long codigoUsuario, Model model) {
 
+		UsuarioDTO usuarioModel = usuarioService.consultarUsuariosbyId(codigoUsuario);
+		
+		List<GrupoDTO> gruposModel = usuarioService.setGruposModel(usuarioModel);
+  
+		model.addAttribute("grupos", gruposModel);
+ 
+		model.addAttribute("usuarioModel", usuarioModel);
+ 
+	    return new ModelAndView("editarCadastro");
+	 }
 }
