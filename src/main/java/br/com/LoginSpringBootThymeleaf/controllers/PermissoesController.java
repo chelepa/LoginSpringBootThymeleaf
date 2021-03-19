@@ -67,5 +67,15 @@ public class PermissoesController {
  
 		return new ModelAndView("redirect:/permissoes");
 	}
+	
+	@GetMapping(value="/permissoes/editar/{codigoUsuario}")
+	public ModelAndView editarCadastro(@PathVariable("codigoUsuario") Integer codigoUsuario, Model model) {
+
+		PermissaoDTO permissaoDTO = permissoesService.getPermissaoById(codigoUsuario);
+// parei aqui 
+		model.addAttribute("PermissaoDTO", permissaoDTO);
+ 
+	    return new ModelAndView("permissoes/UpdatePermissao");
+	 }
 
 }

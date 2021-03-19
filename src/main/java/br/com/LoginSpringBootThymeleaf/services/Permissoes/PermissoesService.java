@@ -46,5 +46,11 @@ public class PermissoesService {
 			permissaoRepository.delete(permissaoEntity.get());
 		}
 	}
+	
+	public PermissaoDTO getPermissaoById(Integer id) {
+		Optional<PermissaoEntity> permissaoEntity = permissaoRepository.findById(id);
+		
+		return new PermissaoDTO(permissaoEntity.get().getId(), permissaoEntity.get().getPermissao(), permissaoEntity.get().getDescricao());
+	}
 
 }
