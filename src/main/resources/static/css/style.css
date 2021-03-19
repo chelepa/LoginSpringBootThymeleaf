@@ -110,3 +110,10 @@ footer {
   }
   .row.content {height:auto;} 
 }
+
+.table>tbody>tr>td {
+	padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: baseline;
+    border-top: 0px solid #fff;
+}

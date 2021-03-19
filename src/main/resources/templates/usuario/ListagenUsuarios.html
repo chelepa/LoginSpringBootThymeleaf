@@ -30,7 +30,7 @@
 													<th>Nome</th>
 													<th>Login</th>
 													<th>Status</th>
-													<th>Ações</th>
+													<th></th>
 												</tr>
 											</thead>
 											<tbody th:each="usuarioModel : ${usuariosModel}"> 
@@ -40,15 +40,9 @@
 													<td th:text="${usuarioModel.login}" class="mdl-data-table__cell--non-numeric"></td>
 													<td th:if="${usuarioModel.ativo}" th:text="Sim" class="mdl-data-table__cell--non-numeric"></td>
 													<td th:unless="${usuarioModel.ativo}" th:text="Não" class="mdl-data-table__cell--non-numeric"></td>
-													<td>
-														<a href="{% url 'website:atualiza_funcionario' pk=funcionario.id %}"
-																class="btn btn-info">
-															Atualizar
-														</a>
-														<a href="{% url 'website:deleta_funcionario' pk=funcionario.id %}"
-															class="btn btn-outline-danger">
-																Excluir
-														</a>
+													<td class="mdl-data-table__cell--non-numeric" style="display: flex; justify-content: flex-end;">
+														<a th:href="@{/usuario/editar/{id}(id = ${usuarioModel.codigo}) }" class="btn btn-info">Atualizar</a>
+														<a href="{% url 'website:deleta_funcionario' pk=funcionario.id %}" class="btn btn-outline-danger">Excluir</a>
 													</td>
 												</tr>
 											</tbody>

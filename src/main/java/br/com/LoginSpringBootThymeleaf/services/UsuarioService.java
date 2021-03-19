@@ -67,14 +67,11 @@ public class UsuarioService implements UserDetailsService {
 
 	public List<UsuarioDTO> consultarUsuarios() {
 
-		List<UsuarioDTO> usuariosModel = new ArrayList<UsuarioDTO>();
+		List<UsuarioDTO> usuariosModel = new ArrayList<>();
 
 		List<UsuarioEntity> usuariosEntity = usuarioRepository.findAll();
 
-		usuariosEntity.forEach(usuarioEntity -> 
-			usuariosModel.add(new UsuarioDTO(usuarioEntity.getId(), usuarioEntity.getNome(), usuarioEntity.getLogin(),
-					null, usuarioEntity.isAtivo(), null))
-		);
+		usuariosEntity.forEach(usuarioEntity -> usuariosModel.add(new UsuarioDTO(usuarioEntity.getId(), usuarioEntity.getNome(), usuarioEntity.getLogin(), null, usuarioEntity.isAtivo(), null)));
 
 		return usuariosModel;
 	}
@@ -84,8 +81,13 @@ public class UsuarioService implements UserDetailsService {
 
 		Optional<UsuarioEntity> usuariosEntity = usuarioRepository.findById(codigoUsuario);
 		
+		List<Integer> grupos = new ArrayList<>();
+		 		
 		if (ObjectUtils.allNotNull(usuariosEntity)) {
-			usuariosModel = new UsuarioDTO(usuariosEntity.get().getId(), usuariosEntity.get().getNome(), usuariosEntity.get().getLogin(), null, usuariosEntity.get().isAtivo(), null);
+			
+			usuariosEntity.get().getGrupos().forEach(grupo -> grupos.add(grupo.getCodigo())); 
+	  
+			usuariosModel = new UsuarioDTO(usuariosEntity.get().getId(), usuariosEntity.get().getNome(), usuariosEntity.get().getLogin(), null, usuariosEntity.get().isAtivo(), grupos);
 		}
 
 		return usuariosModel;
@@ -98,24 +100,23 @@ public class UsuarioService implements UserDetailsService {
 	public void alterarUsuario(UsuarioDTO usuarioModel) {
 
 		Optional<UsuarioEntity> usuarioEntity = usuarioRepository.findById(usuarioModel.getCodigo());
- 
+		
 		usuarioEntity.get().setAtivo(usuarioModel.isAtivo());
 		usuarioEntity.get().setLogin(usuarioModel.getLogin());
 		usuarioEntity.get().setNome(usuarioModel.getNome());
-		
-		if(!StringUtils.isEmpty(usuarioModel.getSenha()))
-		 usuarioEntity.get().setSenha(new BCryptPasswordEncoder().encode(usuarioModel.getSenha()));
- 
 		usuarioEntity.get().setGrupos(buscarGruposUsers(usuarioModel.getGrupos()));
- 
+		
+		if(!StringUtils.isEmpty(usuarioModel.getSenha())) {
+			usuarioEntity.get().setSenha(new BCryptPasswordEncoder().encode(usuarioModel.getSenha()));
+		}
+		
 		usuarioRepository.saveAndFlush(usuarioEntity.get());
 	}
 	
 	public List<GrupoDTO> setGruposModel(UsuarioDTO usuarioModel) {
 		List<GrupoDTO> gruposModel = grupoService.consultarGrupos();
 		
-		gruposModel.forEach(grupo -> { 
-			
+		gruposModel.forEach(grupo -> {
 			if (ObjectUtils.allNotNull(usuarioModel.getGrupos())) {
 				usuarioModel.getGrupos().forEach(grupoSelecionado -> { 
 					if(grupoSelecionado != null && grupo.getCodigo().equals(grupoSelecionado)){
@@ -148,6 +149,7 @@ public class UsuarioService implements UserDetailsService {
 	}
 
 	private List<GrantedAuthority> buscarPermissoesDosGrupos(List<GrupoEntity> grupos) {
+		
 		List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
 
 		grupos.forEach(grupo ->	permissaoRepository.findByGrupos(grupo).forEach(permissao -> auths.add(new SimpleGrantedAuthority(permissao.getPermissao()))));

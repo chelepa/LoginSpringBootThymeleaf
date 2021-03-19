@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	private static final String ROLE_ADMIN = "hasRole('ROLE_ADMIN')";
 
 	@Autowired
 	private UsuarioService usuarioRepositoryImpl;
@@ -19,8 +21,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/usuario/cadastro").access("hasRole('ROLE_ADMIN')")
-			.antMatchers("/usuario").access("hasRole('ROLE_ADMIN')")
+			.antMatchers("/usuario").access(ROLE_ADMIN)
+			.antMatchers("/usuario/cadastro").access(ROLE_ADMIN)
+			.antMatchers("/usuario/editar").access(ROLE_ADMIN)
 			.antMatchers("/home").authenticated()
 			.anyRequest().authenticated()			
 			.and()			

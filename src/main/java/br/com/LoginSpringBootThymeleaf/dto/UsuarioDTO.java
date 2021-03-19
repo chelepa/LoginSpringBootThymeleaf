@@ -1,6 +1,5 @@
 package br.com.LoginSpringBootThymeleaf.dto;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
@@ -10,7 +9,7 @@ import lombok.Data;
 @Data
 public class UsuarioDTO {
 	
-	private long codigo;
+	private Long codigo;
 
 	@NotEmpty(message = "O Nome é de preenchimento obrigatório.")
 	private String nome;
@@ -27,10 +26,10 @@ public class UsuarioDTO {
 	private List<Integer> grupos;
 
 	public UsuarioDTO(){
-		System.out.println("Passei " + LocalDate.now());
+
 	}
 
-	public UsuarioDTO(Integer codigo, String nome, String login, String senha, boolean ativo, List<Integer> grupos) {
+	public UsuarioDTO(Long codigo, String nome, String login, String senha, boolean ativo, List<Integer> grupos) {
 		this.codigo = codigo;
 		this.nome = nome;
 		this.login = login;
