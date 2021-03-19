@@ -50,17 +50,15 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(value="/usuario/salvarUsuario")
-	public ModelAndView salvarUsuario(@ModelAttribute @Valid UsuarioDTO usuarioModel, final BindingResult result,	Model model, RedirectAttributes redirectAttributes){
+	public ModelAndView salvarUsuario(@ModelAttribute @Valid UsuarioDTO usuarioModel, final BindingResult result, Model model, RedirectAttributes redirectAttributes){
 		
 		if(!result.hasErrors()){
 			
 			usuarioService.salvarUsuario(usuarioModel);
 			
-			ModelAndView modelAndView = new ModelAndView("redirect:/usuario");
-			
 			redirectAttributes.addFlashAttribute("msg_resultado", "Registro salvo com sucesso!");
 			
-			return modelAndView;
+			return new ModelAndView("/usuario");
 			
 		}
 		
@@ -109,12 +107,19 @@ public class UsuarioController {
 		     model.addAttribute("usuarioModel", usuarioModel);
  
 		     return new ModelAndView("usuario/UpdateUsuarios");	
-		}
-		else{
+		} else {
 
 		     usuarioService.alterarUsuario(usuarioModel);
  
 		}
+ 
+		return new ModelAndView("redirect:/usuario");
+	}
+	
+	@PostMapping(value="/usuario/excluir/{codigoUsuario}")
+	public ModelAndView excluir(@PathVariable("codigoUsuario") Long codigoUsuario){
+ 
+		this.usuarioService.excluir(codigoUsuario);
  
 		return new ModelAndView("redirect:/usuario");
 	}

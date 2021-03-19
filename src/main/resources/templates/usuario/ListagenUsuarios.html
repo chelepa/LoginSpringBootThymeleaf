@@ -42,7 +42,10 @@
 													<td th:unless="${usuarioModel.ativo}" th:text="Não" class="mdl-data-table__cell--non-numeric"></td>
 													<td class="mdl-data-table__cell--non-numeric" style="display: flex; justify-content: flex-end;">
 														<a th:href="@{/usuario/editar/{id}(id = ${usuarioModel.codigo}) }" class="btn btn-info">Atualizar</a>
-														<a href="{% url 'website:deleta_funcionario' pk=funcionario.id %}" class="btn btn-outline-danger">Excluir</a>
+														<form action="#" th:action="@{../usuario/excluir/{id}(id = ${usuarioModel.codigo}) }" method="post">
+															<button type="submit" class="btn btn-outline-danger">Excluir</button>
+															<!-- <a type="submit" class="btn btn-outline-danger">Excluir</a> -->
+														</form>
 													</td>
 												</tr>
 											</tbody>
