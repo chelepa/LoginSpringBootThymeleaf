@@ -1,4 +1,4 @@
-package br.com.LoginSpringBootThymeleaf.dto;
+package br.com.LoginSpringBootThymeleaf.dto.Grupo;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package br.com.LoginSpringBootThymeleaf.services;
+package br.com.LoginSpringBootThymeleaf.services.Grupo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.LoginSpringBootThymeleaf.dto.GrupoDTO;
+import br.com.LoginSpringBootThymeleaf.dto.Grupo.GrupoDTO;
 import br.com.LoginSpringBootThymeleaf.entities.GrupoEntity;
 import br.com.LoginSpringBootThymeleaf.repositories.GrupoRepository;
 

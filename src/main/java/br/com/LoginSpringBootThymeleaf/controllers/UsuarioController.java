@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.LoginSpringBootThymeleaf.dto.GrupoDTO;
-import br.com.LoginSpringBootThymeleaf.dto.UsuarioDTO;
-import br.com.LoginSpringBootThymeleaf.services.GrupoService;
-import br.com.LoginSpringBootThymeleaf.services.UsuarioService;
+import br.com.LoginSpringBootThymeleaf.dto.Grupo.GrupoDTO;
+import br.com.LoginSpringBootThymeleaf.dto.Usuario.UsuarioDTO;
+import br.com.LoginSpringBootThymeleaf.services.Grupo.GrupoService;
+import br.com.LoginSpringBootThymeleaf.services.Usuarios.UsuarioService;
 
 @Controller
 public class UsuarioController {

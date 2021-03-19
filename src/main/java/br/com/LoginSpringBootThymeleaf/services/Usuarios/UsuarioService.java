@@ -1,4 +1,4 @@
-package br.com.LoginSpringBootThymeleaf.services;
+package br.com.LoginSpringBootThymeleaf.services.Usuarios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +15,16 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import br.com.LoginSpringBootThymeleaf.dto.GrupoDTO;
-import br.com.LoginSpringBootThymeleaf.dto.UsuarioDTO;
-import br.com.LoginSpringBootThymeleaf.dto.UsuarioSecurityDTO;
+import br.com.LoginSpringBootThymeleaf.dto.Grupo.GrupoDTO;
+import br.com.LoginSpringBootThymeleaf.dto.Usuario.UsuarioDTO;
+import br.com.LoginSpringBootThymeleaf.dto.Usuario.UsuarioSecurityDTO;
 import br.com.LoginSpringBootThymeleaf.entities.GrupoEntity;
 import br.com.LoginSpringBootThymeleaf.entities.UsuarioEntity;
 import br.com.LoginSpringBootThymeleaf.exceptions.BadCredentialsException;
 import br.com.LoginSpringBootThymeleaf.repositories.GrupoRepository;
 import br.com.LoginSpringBootThymeleaf.repositories.PermissaoRepository;
 import br.com.LoginSpringBootThymeleaf.repositories.UsuarioRepository;
+import br.com.LoginSpringBootThymeleaf.services.Grupo.GrupoService;
 
 @Component
 public class UsuarioService implements UserDetailsService {

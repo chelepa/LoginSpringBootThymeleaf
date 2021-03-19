@@ -1,4 +1,4 @@
-package br.com.LoginSpringBootThymeleaf.services;
+package br.com.LoginSpringBootThymeleaf.services.Security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import br.com.LoginSpringBootThymeleaf.services.Usuarios.UsuarioService;
 
 @Configuration
 @EnableWebSecurity
@@ -24,6 +26,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/usuario").access(ROLE_ADMIN)
 			.antMatchers("/usuario/cadastro").access(ROLE_ADMIN)
 			.antMatchers("/usuario/editar").access(ROLE_ADMIN)
+			.antMatchers("/grupo").access(ROLE_ADMIN)
+			.antMatchers("/grupoario/cadastro").access(ROLE_ADMIN)
+			.antMatchers("/grupo/editar").access(ROLE_ADMIN)
+			.antMatchers("/permissoes").access(ROLE_ADMIN)
+			.antMatchers("/permissoes/cadastro").access(ROLE_ADMIN)
+			.antMatchers("/permissoes/editar").access(ROLE_ADMIN)
 			.antMatchers("/home").authenticated()
 			.anyRequest().authenticated()			
 			.and()			
