@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/layout">
+<head>
+  <title>Permissoes</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>       
+</head>
+<body>
+  <section layout:fragment="content"> 
+      <div class="mdl-grid">   
+        <div class="mdl-layout-spacer"></div>    
+        <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--4dp mdl-color--white">    	
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="card">
+									<div class="card-body">
+										<h1 class="card-title">Lista de Permissões</h1>
+										
+											<p class="card-text">
+												Aqui está a lista de <code>Permissões</code> cadastrados no sistema.
+											</p>
+											<div class="text-right">
+												<a th:href="@{/permissoes/cadastro}" class="btn btn-primary">Cadastrar Permissões</a>
+											</div>
+										<hr/>
+										<table class="table">
+											<thead class="thead-dark">
+												<tr>
+													<th>ID</th>
+													<th>Permissao</th>
+													<th>descricao</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody th:each="permissaoDTO : ${PermissaoDTO}"> 
+												<tr>
+													<td th:text="${permissaoDTO.id}"></td>
+													<td th:text="${permissaoDTO.permissao}" class="mdl-data-table__cell--non-numeric"></td>
+													<td th:text="${permissaoDTO.descricao}" class="mdl-data-table__cell--non-numeric"></td>
+													<td class="mdl-data-table__cell--non-numeric" style="display: flex; justify-content: flex-end;">
+														<a th:href="@{/permissoes/editar/{id}(id = ${permissaoDTO.id}) }" class="btn btn-info">Atualizar</a>
+														<form action="#" th:action="@{../permissoes/excluir/{id}(id = ${permissaoDTO.id}) }" method="post">
+															<button type="submit" class="btn btn-outline-danger">Excluir</button>
+															<!-- <a type="submit" class="btn btn-outline-danger">Excluir</a> -->
+														</form>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+        </section>	
+        <div class="mdl-layout-spacer"></div>
+      </div>
+  </section>
+</body>
+</html>
