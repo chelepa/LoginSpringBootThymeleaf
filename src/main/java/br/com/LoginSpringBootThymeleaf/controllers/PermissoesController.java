@@ -72,10 +72,10 @@ public class PermissoesController {
 	public ModelAndView editarCadastro(@PathVariable("codigoUsuario") Integer codigoUsuario, Model model) {
 
 		PermissaoDTO permissaoDTO = permissoesService.getPermissaoById(codigoUsuario);
-// parei aqui 
+ 
 		model.addAttribute("PermissaoDTO", permissaoDTO);
  
-	    return new ModelAndView("permissoes/UpdatePermissao");
+	    return new ModelAndView("permissao/UpdatePermissao");
 	 }
 
 }
