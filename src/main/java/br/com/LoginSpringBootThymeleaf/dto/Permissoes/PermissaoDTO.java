@@ -13,8 +13,6 @@ public class PermissaoDTO {
 	
 	private String descricao;
 	
-//	private List<GrupoEntity> grupos = new ArrayList<GrupoEntity>();
-	
 	public PermissaoDTO(Integer integer, String permissao, String descricao) {
 		this.id = integer;
 		this.permissao = permissao;

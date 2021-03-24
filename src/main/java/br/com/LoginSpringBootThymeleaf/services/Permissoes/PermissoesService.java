@@ -52,5 +52,15 @@ public class PermissoesService {
 		
 		return new PermissaoDTO(permissaoEntity.get().getId(), permissaoEntity.get().getPermissao(), permissaoEntity.get().getDescricao());
 	}
+	
+	public void updatePermissao(PermissaoDTO permissao) {
+		Optional<PermissaoEntity> permissaoEntity = permissaoRepository.findById(permissao.getId());
+		
+		permissaoEntity.get().setId(permissao.getId());
+		permissaoEntity.get().setPermissao(permissao.getPermissao());
+		permissaoEntity.get().setDescricao(permissao.getDescricao());
+		
+		permissaoRepository.saveAndFlush(permissaoEntity.get());
+	}
 
 }

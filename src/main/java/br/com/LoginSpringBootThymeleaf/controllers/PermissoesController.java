@@ -60,22 +60,30 @@ public class PermissoesController {
 		return new ModelAndView("permissao/CadastroPermissao");
 	}
 	
-	@PostMapping(value="/permissoes/excluir/{codigoUsuario}")
-	public ModelAndView excluir(@PathVariable("codigoUsuario") Integer codigoUsuario){
+	@PostMapping(value="/permissoes/excluir/{codigoPermissao}")
+	public ModelAndView excluir(@PathVariable("codigoPermissao") Integer codigoUsuario){
  
 		permissoesService.delete(codigoUsuario);
  
 		return new ModelAndView("redirect:/permissoes");
 	}
 	
-	@GetMapping(value="/permissoes/editar/{codigoUsuario}")
-	public ModelAndView editarCadastro(@PathVariable("codigoUsuario") Integer codigoUsuario, Model model) {
+	@GetMapping(value="/permissoes/editar/{codigoPermissao}")
+	public ModelAndView getViewUpdatePermissao(@PathVariable("codigoPermissao") Integer codigoUsuario, Model model) {
 
 		PermissaoDTO permissaoDTO = permissoesService.getPermissaoById(codigoUsuario);
  
 		model.addAttribute("PermissaoDTO", permissaoDTO);
- 
+
 	    return new ModelAndView("permissao/UpdatePermissao");
 	 }
+	
+	@PostMapping(value="/permissoes/saveUpdatePermissoes")
+	public ModelAndView saveUpdatePermissoes(@ModelAttribute @Valid PermissaoDTO permissaoDTO) {
+		
+		permissoesService.updatePermissao(permissaoDTO);
+	     
+	     return new ModelAndView("redirect:/permissao");
+	}
 
 }

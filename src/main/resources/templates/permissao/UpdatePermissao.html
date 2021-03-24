@@ -16,7 +16,7 @@
 									<div class="card-body">
 										<h1 class="card-title">Edição de Usuario</h1>
                     <hr/>
-                    <form action="#" id="formulario-cadastro" th:action="@{../../usuario/salvarAlteracao}" th:object="${PermissaoDTO}" method="post">
+                    <form action="#" id="formulario-cadastro" th:action="@{../../permissoes/saveUpdatePermissoes}" th:object="${PermissaoDTO}" method="post">
                       <fieldset>
                         <li class="mdl-list__item" th:if="${msg_resultado}">						 	
                           <p id="p-mensagem-sucesso" class="sucesso-msg" th:text="${msg_resultado}" >...</p>	
