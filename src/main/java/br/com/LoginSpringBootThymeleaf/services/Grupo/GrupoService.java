@@ -2,6 +2,7 @@ package br.com.LoginSpringBootThymeleaf.services.Grupo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.LoginSpringBootThymeleaf.dto.Grupo.GrupoDTO;
 import br.com.LoginSpringBootThymeleaf.entities.GrupoEntity;
+import br.com.LoginSpringBootThymeleaf.entities.UsuarioEntity;
 import br.com.LoginSpringBootThymeleaf.repositories.GrupoRepository;
 
 @Service
@@ -31,5 +33,13 @@ public class GrupoService {
 	    });
  
 		return gruposModel;
+	}
+	
+	public List<GrupoEntity> findByUsuariosGrupos(UsuarioEntity usuarioEntity){
+		return grupoRepository.findByUsuarios(usuarioEntity);
+	}
+	
+	public Optional<GrupoEntity> gruposById(Integer codigoGrupo){
+		return grupoRepository.findById(codigoGrupo);
 	}
 }

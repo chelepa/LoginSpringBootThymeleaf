@@ -21,7 +21,6 @@ import br.com.LoginSpringBootThymeleaf.dto.Usuario.UsuarioSecurityDTO;
 import br.com.LoginSpringBootThymeleaf.entities.GrupoEntity;
 import br.com.LoginSpringBootThymeleaf.entities.UsuarioEntity;
 import br.com.LoginSpringBootThymeleaf.exceptions.BadCredentialsException;
-import br.com.LoginSpringBootThymeleaf.repositories.GrupoRepository;
 import br.com.LoginSpringBootThymeleaf.repositories.PermissaoRepository;
 import br.com.LoginSpringBootThymeleaf.repositories.UsuarioRepository;
 import br.com.LoginSpringBootThymeleaf.services.Grupo.GrupoService;
@@ -31,9 +30,6 @@ public class UsuarioService implements UserDetailsService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-
-	@Autowired
-	private GrupoRepository grupoRepository;
 
 	@Autowired
 	private PermissaoRepository permissaoRepository;
@@ -53,7 +49,7 @@ public class UsuarioService implements UserDetailsService {
 			throw new DisabledException("Usuário não está ativo no sistema!");
 
 		return new UsuarioSecurityDTO(usuarioEntity.getLogin(), usuarioEntity.getSenha(), usuarioEntity.isAtivo(),
-				this.buscarPermissoesUsuario(usuarioEntity));
+				this.buscarPermissoesDosGrupos(usuarioEntity));
 	}
 
 	public void salvarUsuario(UsuarioDTO user) {
@@ -135,21 +131,16 @@ public class UsuarioService implements UserDetailsService {
 		List<GrupoEntity> grupos = new ArrayList<>();
 		for (Integer codigoGrupo : list) {
 			if (codigoGrupo != null) {
-				grupoEntity = grupoRepository.findById(codigoGrupo);
+				grupoEntity = grupoService.gruposById(codigoGrupo);
 				grupos.add(grupoEntity.get());
 			}
 		}
 		return grupos;
 	}
 
-	private List<GrantedAuthority> buscarPermissoesUsuario(UsuarioEntity usuarioEntity) {
-
-		List<GrupoEntity> grupos = grupoRepository.findByUsuarios(usuarioEntity);
-
-		return buscarPermissoesDosGrupos(grupos);
-	}
-
-	private List<GrantedAuthority> buscarPermissoesDosGrupos(List<GrupoEntity> grupos) {
+	private List<GrantedAuthority> buscarPermissoesDosGrupos(UsuarioEntity usuarioEntity) {
+		
+		List<GrupoEntity> grupos = grupoService.findByUsuariosGrupos(usuarioEntity);
 		
 		List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
 
