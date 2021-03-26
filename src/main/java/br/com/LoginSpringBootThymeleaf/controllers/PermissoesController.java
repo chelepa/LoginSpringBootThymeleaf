@@ -83,7 +83,7 @@ public class PermissoesController {
 		
 		permissoesService.updatePermissao(permissaoDTO);
 	     
-	     return new ModelAndView("redirect:/permissao");
+	     return new ModelAndView("redirect:/permissoes");
 	}
 
 }
