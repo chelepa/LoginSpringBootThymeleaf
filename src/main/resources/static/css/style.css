@@ -117,3 +117,12 @@ footer {
     vertical-align: baseline;
     border-top: 0px solid #fff;
 }
+
+.tbItens{
+    width:100%;
+    border:solid 1px;
+}
+ 
+.linhaItens{
+    display: none;
+}
