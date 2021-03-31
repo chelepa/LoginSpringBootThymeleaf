@@ -1,5 +1,6 @@
 package br.com.LoginSpringBootThymeleaf;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +16,11 @@ public class LoginSpringBootThymeleafApplication {
     @Bean
     public SpringSecurityDialect springSecurityDialect(){
         return new SpringSecurityDialect();
+    }
+    
+    @Bean
+    public ModelMapper modelMapper() {
+    	return new ModelMapper();
     }
 
 }

@@ -36,7 +36,7 @@
 												Aqui está a lista de <code>Grupos</code> de Permições cadastrados no sistema.
 											</p>
 											<div class="text-right">
-												<a th:href="@{/permissoes/cadastro}" class="btn btn-primary">Cadastrar Permissões</a>
+												<a th:href="@{/grupo/cadastro}" class="btn btn-primary">Cadastrar Grupo</a>
 											</div>
 										<hr/>
 
@@ -58,7 +58,7 @@
 													<td></td>
 													<td class="mdl-data-table__cell--non-numeric" style="display: flex; justify-content: flex-end;border: aliceblue;">
 														<a th:href="@{/permissoes/editar/{id}(id = ${grupoResponseDTO.codigo}) }" class="btn btn-info">Atualizar</a>
-														<form action="#" th:action="@{../permissoes/excluir/{id}(id = ${grupoResponseDTO.codigo}) }" method="post">
+														<form action="#" th:action="@{../grupo/excluir/{codigoGrupo}(codigoGrupo = ${grupoResponseDTO.codigo}) }" method="post">
 															<button type="submit" class="btn btn-outline-danger">Excluir</button>
 														</form>
 													</td>
