@@ -13,8 +13,10 @@ import br.com.LoginSpringBootThymeleaf.dto.Grupo.GrupoDTO;
 import br.com.LoginSpringBootThymeleaf.dto.Grupo.GrupoResponseDTO;
 import br.com.LoginSpringBootThymeleaf.dto.Grupo.GrupoResquestDTO;
 import br.com.LoginSpringBootThymeleaf.entities.GrupoEntity;
+import br.com.LoginSpringBootThymeleaf.entities.PermissaoEntity;
 import br.com.LoginSpringBootThymeleaf.entities.UsuarioEntity;
 import br.com.LoginSpringBootThymeleaf.repositories.GrupoRepository;
+import br.com.LoginSpringBootThymeleaf.repositories.PermissaoRepository;
 
 @Service
 @Transactional
@@ -22,6 +24,9 @@ public class GrupoService {
 	
 	@Autowired
 	private GrupoRepository grupoRepository;
+	
+	@Autowired
+	private PermissaoRepository permissaoRepository;
 	
     @Autowired
     private ModelMapper modelMapper;
@@ -66,10 +71,24 @@ public class GrupoService {
 	
 	public void saveGrupo(GrupoResquestDTO grupo) {
 		GrupoEntity response = new GrupoEntity();
-		modelMapper.map(grupo, response);
+		response.setCodigo(grupo.getCodigo());
+		response.setNome(grupo.getNome());
+		response.setDescricao(grupo.getDescricao());
+		response.setPermissoes(buscaPermissoes(grupo.getPermissoes()));
 		grupoRepository.saveAndFlush(response);
 	}
 	
+	private List<PermissaoEntity> buscaPermissoes(List<Integer> permissoes) {
+		List<PermissaoEntity> listpermissoes = new ArrayList<>();
+		for (Integer permissaoEntity : permissoes) {
+			if (permissaoEntity != null) {
+				Optional<PermissaoEntity> response = permissaoRepository.findById(permissaoEntity);
+				listpermissoes.add(response.get());
+			}
+		}
+		return listpermissoes;
+	}
+
 	public List<GrupoEntity> findByUsuariosGrupos(UsuarioEntity usuarioEntity){
 		return grupoRepository.findByUsuarios(usuarioEntity);
 	}
@@ -79,10 +98,6 @@ public class GrupoService {
 	}
 
 	public void delete(Integer codigoGrupo) {
-		Optional<GrupoEntity> grupo = gruposById(codigoGrupo);
-		if (grupo.isPresent()) {
-			grupoRepository.delete(grupo.get());
-		}
-		
+		grupoRepository.deleteById(codigoGrupo);
 	}
 }

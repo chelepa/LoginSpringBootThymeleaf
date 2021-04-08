@@ -1,5 +1,7 @@
 package br.com.LoginSpringBootThymeleaf.dto.Grupo;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,5 +16,7 @@ public class GrupoResquestDTO {
 	private String nome;
 
 	private String descricao;
+	
+	private List<Integer> permissoes;
 
 }

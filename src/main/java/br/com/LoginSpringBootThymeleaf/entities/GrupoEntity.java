@@ -35,7 +35,7 @@ public class GrupoEntity implements Serializable{
 	@Column(name="ds_descricao")
 	private String descricao;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}) 
 	@JoinTable(
 		name="tb_usuario_grupo",
 		joinColumns=@JoinColumn(name="id_grupo", referencedColumnName="id_grupo"),
@@ -43,7 +43,7 @@ public class GrupoEntity implements Serializable{
 	)
 	private List<UsuarioEntity> usuarios = new ArrayList<UsuarioEntity>();
  
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}) 
 	@JoinTable(
 		name="tb_permissao_grupo",
 		joinColumns=@JoinColumn(name="id_grupo", referencedColumnName="id_grupo"),

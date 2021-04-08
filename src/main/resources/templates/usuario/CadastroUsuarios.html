@@ -46,7 +46,7 @@
                              <tr>
                                 <td>
                                   <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" th:for="${__${grupo.codigo}__}">
-                                    <input type="checkbox" th:id="${__${grupo.codigo}__}" th:name="|grupos[${stat.index}]|" th:value="${grupo.codigo}" class="mdl-checkbox__input" 
+                                    <input type="checkbox" th:id="${__${grupo.codigo}__}" th:name="|grupos[${stat.index}]|" th:value="${grupo}" class="mdl-checkbox__input" 
                                     th:checked="${grupo.checked}"/>
                                     <span class="mdl-checkbox__label" th:text="${grupo.descricao}">...</span>
                                   </label>

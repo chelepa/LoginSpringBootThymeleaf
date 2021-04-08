@@ -127,11 +127,10 @@ public class UsuarioService implements UserDetailsService {
 	}
 
 	private List<GrupoEntity> buscarGruposUsers(List<Integer> list) {
-		Optional<GrupoEntity> grupoEntity;
 		List<GrupoEntity> grupos = new ArrayList<>();
 		for (Integer codigoGrupo : list) {
 			if (codigoGrupo != null) {
-				grupoEntity = grupoService.gruposById(codigoGrupo);
+				Optional<GrupoEntity> grupoEntity = grupoService.gruposById(codigoGrupo);
 				grupos.add(grupoEntity.get());
 			}
 		}

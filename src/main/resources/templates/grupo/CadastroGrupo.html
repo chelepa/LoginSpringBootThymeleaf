@@ -31,6 +31,26 @@
                           <input class="form-control" type="text" id="input-descricao" th:field="*{descricao}" placeholder="Descricao">
                           <p th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="erro-msg">...</p>
                         </div>
+
+                        <table>
+                          <tr>
+                            <td>
+                              <span th:text="Permissoes"></span>
+                            </td>
+                          </tr>
+                          <th:block th:each="grupo, stat : ${permissoes}">
+                             <tr>
+                                <td>
+                                  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" th:for="${__${grupo.id}__}">
+                                    <input type="checkbox" th:id="${__${grupo.id}__}" th:name="|permissoes[${stat.index}]|" th:value="${grupo.id}" class="mdl-checkbox__input"/>
+                                    <span class="mdl-checkbox__label" th:text="${grupo.permissao}">...</span>
+                                    <span class="mdl-checkbox__label"> / </span>
+                                    <span class="mdl-checkbox__label" th:text="${grupo.descricao}">...</span>
+                                  </label>
+                                </td>
+                             </tr>
+                          </th:block>
+                       </table>
                       </fieldset>
                       <hr/>
                       <div class="text-right">

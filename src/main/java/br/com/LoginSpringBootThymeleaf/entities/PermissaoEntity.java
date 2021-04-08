@@ -35,7 +35,7 @@ public class PermissaoEntity implements Serializable{
 	@Column(name="ds_descricao")
 	private String descricao;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(
 			name="tb_permissao_grupo",
 			joinColumns=@JoinColumn(name="id_permissao", referencedColumnName="id_permissao"),

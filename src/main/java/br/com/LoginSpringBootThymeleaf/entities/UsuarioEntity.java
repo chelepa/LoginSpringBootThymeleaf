@@ -41,7 +41,7 @@ public class UsuarioEntity implements Serializable {
 	@Column(name = "fl_ativo")
 	private boolean ativo;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
     	name = "tb_usuario_grupo", 
 	    joinColumns = {@JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")}, 
