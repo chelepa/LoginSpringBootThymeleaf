@@ -112,7 +112,6 @@ public class UsuarioService implements UserDetailsService {
 	
 	public List<GrupoDTO> setGruposModel(UsuarioDTO usuarioModel) {
 		List<GrupoDTO> gruposModel = grupoService.consultarGrupos();
-		
 		gruposModel.forEach(grupo -> {
 			if (ObjectUtils.allNotNull(usuarioModel.getGrupos())) {
 				usuarioModel.getGrupos().forEach(grupoSelecionado -> { 

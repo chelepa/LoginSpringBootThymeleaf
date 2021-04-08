@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class PermissaoDTO {
+public class PermissaoResponseDTO {
 
 	private Integer id;
 
@@ -15,9 +15,10 @@ public class PermissaoDTO {
 	
 	private Boolean checked;
 	
-	public PermissaoDTO(Integer integer, String permissao, String descricao) {
+	public PermissaoResponseDTO(Integer integer, String permissao, String descricao, Boolean checked) {
 		this.id = integer;
 		this.permissao = permissao;
 		this.descricao = descricao;
+		this.checked = checked;
 	}
 }

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.LoginSpringBootThymeleaf.dto.Grupo.GrupoResponseDTO;
 import br.com.LoginSpringBootThymeleaf.dto.Grupo.GrupoResquestDTO;
+import br.com.LoginSpringBootThymeleaf.dto.Permissoes.PermissaoResponseDTO;
 import br.com.LoginSpringBootThymeleaf.services.Grupo.GrupoService;
 import br.com.LoginSpringBootThymeleaf.services.Permissoes.PermissoesService;
 
@@ -78,9 +79,12 @@ public class GrupoController {
 	public ModelAndView getViewUpdateGrupo(@PathVariable("codigoGrupo") Integer codigoGrupo, Model model) {
 
 		GrupoResponseDTO response = service.getGrupoById(codigoGrupo);
- 
+		
+		List<PermissaoResponseDTO> responsePermissao = service.permissaoSelected(response.getPermissoes());
+		
+		model.addAttribute("permissoes", responsePermissao);
+		
 		model.addAttribute("GrupoResponseDTO", response);
-//		model.addAttribute("Permissao", response.getPermissoes());
 
 	    return new ModelAndView("grupo/UpdateGrupo");
 	 }

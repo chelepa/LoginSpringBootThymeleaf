@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.LoginSpringBootThymeleaf.dto.Grupo.GrupoDTO;
 import br.com.LoginSpringBootThymeleaf.dto.Grupo.GrupoResponseDTO;
 import br.com.LoginSpringBootThymeleaf.dto.Grupo.GrupoResquestDTO;
+import br.com.LoginSpringBootThymeleaf.dto.Permissoes.PermissaoDTO;
+import br.com.LoginSpringBootThymeleaf.dto.Permissoes.PermissaoResponseDTO;
 import br.com.LoginSpringBootThymeleaf.entities.GrupoEntity;
 import br.com.LoginSpringBootThymeleaf.entities.PermissaoEntity;
 import br.com.LoginSpringBootThymeleaf.entities.UsuarioEntity;
@@ -99,5 +101,25 @@ public class GrupoService {
 
 	public void delete(Integer codigoGrupo) {
 		grupoRepository.deleteById(codigoGrupo);
+	}
+
+	public List<PermissaoResponseDTO> permissaoSelected(List<PermissaoDTO> permissoes) {
+		List<PermissaoResponseDTO> response = listPermissaoCheck();
+		response.forEach(permissao -> {
+			permissoes.forEach(permissaoSelecionada -> { 
+				if(permissaoSelecionada != null && permissao.getId().equals(permissaoSelecionada.getId())){
+					permissao.setChecked(true);
+				}
+			});
+		});
+		
+		return response;
+	}
+	
+	private List<PermissaoResponseDTO> listPermissaoCheck() {
+		List<PermissaoResponseDTO> response = new ArrayList<>();
+		List<PermissaoEntity> listPermissoes = permissaoRepository.findAll();
+		listPermissoes.forEach(item -> response.add(modelMapper.map(item, PermissaoResponseDTO.class)));
+		return response;
 	}
 }
