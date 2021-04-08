@@ -1,6 +1,5 @@
 package br.com.LoginSpringBootThymeleaf.dto.Grupo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.LoginSpringBootThymeleaf.dto.Permissoes.PermissaoDTO;
@@ -19,6 +18,6 @@ public class GrupoResponseDTO {
 
 	private String descricao;
  
-	private List<PermissaoDTO> permissoes = new ArrayList<PermissaoDTO>();
+	private List<PermissaoDTO> permissoes;
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,9 @@ public class GrupoController {
 	
 	@Autowired
 	private GrupoService service;
+	
+    @Autowired
+    private ModelMapper modelMapper;
 	
 	@GetMapping(value="/grupos")
 	public ModelAndView consultarGrupos(Model model) {
@@ -68,5 +72,16 @@ public class GrupoController {
  
 		return new ModelAndView("redirect:/grupos");
 	}
+	
+	@GetMapping(value="/grupo/editar/{codigoGrupo}")
+	public ModelAndView getViewUpdateGrupo(@PathVariable("codigoGrupo") Integer codigoGrupo, Model model) {
+
+		GrupoResponseDTO response = service.getGrupoById(codigoGrupo);
+ 
+		model.addAttribute("GrupoResponseDTO", response);
+//		model.addAttribute("Permissao", response.getPermissoes());
+
+	    return new ModelAndView("grupo/UpdateGrupo");
+	 }
 
 }
