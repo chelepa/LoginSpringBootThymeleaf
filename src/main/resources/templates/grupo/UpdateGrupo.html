@@ -16,7 +16,7 @@
 									<div class="card-body">
 										<h1 class="card-title">Edição de Grupos De Permição</h1>
                     <hr/>
-                    <form action="#" id="formulario-cadastro" th:action="@{../../permissoes/saveUpdatePermissoes}" th:object="${GrupoResponseDTO}" method="post">
+                    <form action="#" id="formulario-cadastro" th:action="@{../../grupo/saveUpdateGrupo}" th:object="${GrupoResponseDTO}" method="post">
                       <fieldset>
                         <li class="mdl-list__item" th:if="${msg_resultado}">						 	
                           <p id="p-mensagem-sucesso" class="sucesso-msg" th:text="${msg_resultado}" >...</p>	
@@ -35,22 +35,26 @@
                           <input class="form-control" type="text" id="input-descricao" th:field="*{descricao}" placeholder="descricao">
                           <p th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="erro-msg">...</p>
                         </div>
-                        <table class="table table-sm tbItens" rules="rows">
-                          <thead>
-                              <tr>
-                                  <th>Permissao</th>
-                                  <th>descricao</th>
-                                  <th></th>
-                              </tr>
-                          </thead>
-                          <tbody  th:each="permissoes : ${GrupoResponseDTO.permissoes}">
-                              <tr>
-                                <td th:text="${permissoes.permissao}" class="mdl-data-table__cell--non-numeric"></td>
-                                <td th:text="${permissoes.descricao}" class="mdl-data-table__cell--non-numeric"></td>
-                                <td></td>
-                              </tr>
-                          </tbody>
-                      </table>
+                        <table>
+                          <tr>
+                            <td>
+                              <span th:text="Permissoes"></span>
+                            </td>
+                          </tr>
+                          <th:block th:each="grupo, stat : ${permissoes}">
+                             <tr>
+                                <td>
+                                  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" th:for="${__${grupo.id}__}">
+                                    <input type="checkbox" th:id="${__${grupo.id}__}" th:name="|permissoes[${stat.index}]|" th:value="${grupo.id}" class="mdl-checkbox__input"
+                                    th:checked="${grupo.checked}"/>
+                                    <span class="mdl-checkbox__label" th:text="${grupo.permissao}">...</span>
+                                    <span class="mdl-checkbox__label"> / </span>
+                                    <span class="mdl-checkbox__label" th:text="${grupo.descricao}">...</span>
+                                  </label>
+                                </td>
+                             </tr>
+                          </th:block>
+                       </table>
                       </fieldset>
                       <hr/>
                       <div class="text-right">

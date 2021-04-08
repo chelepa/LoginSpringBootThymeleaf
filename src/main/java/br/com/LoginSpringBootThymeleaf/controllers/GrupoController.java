@@ -88,5 +88,13 @@ public class GrupoController {
 
 	    return new ModelAndView("grupo/UpdateGrupo");
 	 }
+	
+	@PostMapping(value="/grupo/saveUpdateGrupo")
+	public ModelAndView salvarAlteracao(@ModelAttribute @Valid GrupoResquestDTO request, Model model, RedirectAttributes redirectAttributes){
+
+		service.saveUpdateGrupo(request);
+		
+		return new ModelAndView("redirect:/grupos");
+	}
 
 }

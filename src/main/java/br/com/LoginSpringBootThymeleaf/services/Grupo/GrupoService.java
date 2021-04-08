@@ -2,6 +2,7 @@ package br.com.LoginSpringBootThymeleaf.services.Grupo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -121,5 +122,26 @@ public class GrupoService {
 		List<PermissaoEntity> listPermissoes = permissaoRepository.findAll();
 		listPermissoes.forEach(item -> response.add(modelMapper.map(item, PermissaoResponseDTO.class)));
 		return response;
+	}
+
+	public void saveUpdateGrupo(GrupoResquestDTO request) {
+		Optional<GrupoEntity> grupo = gruposById(request.getCodigo());
+		
+		if(grupo.isPresent()) {
+			grupo.get().setCodigo(request.getCodigo());
+			grupo.get().setDescricao(request.getDescricao());
+			grupo.get().setNome(request.getNome());
+			grupo.get().setPermissoes(getListPermissaoById(request.getPermissoes()));
+		}
+	}
+
+	private List<PermissaoEntity> getListPermissaoById(List<Integer> permissoes) {
+		List<PermissaoEntity> listPermissoes = new ArrayList<>();
+		permissoes.stream().forEach(item -> {
+			if (Objects.nonNull(item)) {
+				listPermissoes.add(permissaoRepository.findById(item).get());
+			}
+		});
+		return listPermissoes;
 	}
 }
