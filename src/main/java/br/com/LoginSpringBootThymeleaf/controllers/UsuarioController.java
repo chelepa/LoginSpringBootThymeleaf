@@ -58,7 +58,7 @@ public class UsuarioController {
 			
 			redirectAttributes.addFlashAttribute("msg_resultado", "Registro salvo com sucesso!");
 			
-			return new ModelAndView("/usuario");
+			return new ModelAndView("redirect:/usuario");
 			
 		}
 		

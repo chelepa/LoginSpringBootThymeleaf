@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/usuario/cadastro").access(ROLE_ADMIN)
 			.antMatchers("/usuario/editar").access(ROLE_ADMIN)
 			.antMatchers("/grupo").access(ROLE_ADMIN)
-			.antMatchers("/grupoario/cadastro").access(ROLE_ADMIN)
+			.antMatchers("/grupo/cadastro").access(ROLE_ADMIN)
 			.antMatchers("/grupo/editar").access(ROLE_ADMIN)
 			.antMatchers("/permissoes").access(ROLE_ADMIN)
 			.antMatchers("/permissoes/cadastro").access(ROLE_ADMIN)
@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
  
 	@Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {				
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{		
 		auth.userDetailsService(usuarioRepositoryImpl).passwordEncoder(new BCryptPasswordEncoder());
     }
 	
