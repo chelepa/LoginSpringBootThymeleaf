@@ -8,7 +8,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.com.LoginSpringBootThymeleaf.constants.ErrorCodes;
-import br.com.LoginSpringBootThymeleaf.exceptions.BadCredentialsImplException;
 import br.com.LoginSpringBootThymeleaf.exceptions.ExceptionResponse;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,11 +30,5 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ExceptionResponse exceptionResponse = new ExceptionResponse(ErrorCodes.INVALID_REQUEST, ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionResponse);
     }
-    
-    @ExceptionHandler(BadCredentialsImplException.class)
-	public ResponseEntity<Object> handleBadCredentialsException(BadCredentialsImplException ex, WebRequest request) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(ErrorCodes.INVALID_CREDENTIALS, ex.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exceptionResponse);
-    }
-    
+        
 }
