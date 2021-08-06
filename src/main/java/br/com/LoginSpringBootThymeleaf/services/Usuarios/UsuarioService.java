@@ -20,7 +20,6 @@ import br.com.LoginSpringBootThymeleaf.dto.Usuario.UsuarioDTO;
 import br.com.LoginSpringBootThymeleaf.dto.Usuario.UsuarioSecurityDTO;
 import br.com.LoginSpringBootThymeleaf.entities.GrupoEntity;
 import br.com.LoginSpringBootThymeleaf.entities.UsuarioEntity;
-import br.com.LoginSpringBootThymeleaf.exceptions.BadCredentialsImplException;
 import br.com.LoginSpringBootThymeleaf.repositories.PermissaoRepository;
 import br.com.LoginSpringBootThymeleaf.repositories.UsuarioRepository;
 import br.com.LoginSpringBootThymeleaf.services.Grupo.GrupoService;
@@ -43,7 +42,7 @@ public class UsuarioService implements UserDetailsService {
 		UsuarioEntity usuarioEntity = usuarioRepository.findByLogin(login);
 				
 		if (ObjectUtils.isEmpty(usuarioEntity))
-			throw new BadCredentialsImplException("Usuário ou senha invalidos");
+//			throw new BadCredentialsImplException("Usuário ou senha invalidos");
 
 		if (!usuarioEntity.isAtivo())
 			throw new DisabledException("Usuário não está ativo no sistema!");

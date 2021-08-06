@@ -49,11 +49,11 @@ public class UsuarioEntity implements Serializable {
     )
 	private List<GrupoEntity> grupos = new ArrayList<GrupoEntity>();
 	
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}) 
 	@JoinTable(
-		    name = "tb_usuario_files",
-		    joinColumns = @JoinColumn(name = "id_usuario" , referencedColumnName="id_usuario"),
-		    inverseJoinColumns = @JoinColumn(name = "id_files" , referencedColumnName="id_files")
-		)
-	private List<FilesEntity> files = new ArrayList<FilesEntity>();
+		name="tb_contas_usuario",
+		joinColumns=@JoinColumn(name="id_usuario", referencedColumnName="id_usuario"),
+		inverseJoinColumns=@JoinColumn(name="id_contas", referencedColumnName="id_contas")
+	)
+	private List<ContasEntity> contas = new ArrayList<ContasEntity>();
 }
